@@ -677,8 +677,8 @@ PLUGIN_API int XPluginStart(char *outName, char *outSig, char *outDesc) {
 			     0,                  // Receive input before plugin windows. (or 1?)
 			     (void *) 0);        // inRefcon.
 
-  ////XPLMRegisterDrawCallback(DrawBolBillboard, xplm_Phase_Modern3D, 0, NULL);
-  XPLMRegisterDrawCallback(DrawBolBillboardVK, xplm_Phase_Modern3D, 0, NULL);
+  XPLMRegisterDrawCallback(DrawBolBillboard, xplm_Phase_Modern3D, 0, NULL);
+  ////XPLMRegisterDrawCallback(DrawBolBillboardVK, xplm_Phase_Modern3D, 0, NULL);
 
   
   //XPLMRegisterDrawCallback(DrawBolBillboard, xplm_Phase_Airplanes, 0, NULL);
@@ -714,8 +714,8 @@ PLUGIN_API void	XPluginStop(void) {
   wtsmokemode = false;
   XPLMCheckMenuItem(myMenu, MENU_WT_TOGGLE, xplm_Menu_Unchecked);
 
-  ////XPLMUnregisterDrawCallback(DrawBolBillboard, xplm_Phase_Modern3D, 0, NULL);
-  XPLMUnregisterDrawCallback(DrawBolBillboardVK, xplm_Phase_Modern3D, 0, NULL);
+  XPLMUnregisterDrawCallback(DrawBolBillboard, xplm_Phase_Modern3D, 0, NULL);
+  ////XPLMUnregisterDrawCallback(DrawBolBillboardVK, xplm_Phase_Modern3D, 0, NULL);
     
   //XPLMUnregisterDrawCallback(DrawBolBillboard, xplm_Phase_Airplanes, 0, NULL);
 
