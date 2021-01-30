@@ -1,0 +1,106 @@
+% ----
+\newcommand{\cmp}[1]{\texttt{#1}} %%computer (was cmd)
+\newcommand{\ssans}[1]{\scalebox{0.9}{\sf #1}}
+\newcommand{\sans}[1]{{\sf #1}}
+\newcommand{\num}[1]{\sepnum{.}{,}{}{#1}}%use \, for small space
+\newcommand{\nump}[1]{\sepnum{.}{,}{}{#1}\,\%}%use \, for small space
+%\newcommand{\tnum}[1]{\oldstylenums{\num{#1}}} %textnumber
+\newcommand{\tnum}[1]{\oldstylenums{#1}} %textnumber, no grouping
+\newcommand{\smallpct}{{\footnotesize\%}} %small percent
+\newcommand{\tnump}[1]{\oldstylenums{#1}\smallpct{}} %textnumber, no grouping, percentage
+\newcommand{\q}[1]{\enquote{#1}}
+\newcommand{\qq}[1]{\enquote*{#1}}
+\newcommand{\dqq}[1]{\quotedblbase{#1}\textquotedblright} %Dutch double quotes (low/high)
+\newcommand{\sqq}[1]{\guillemotleft{#1}\guillemotright} %Swedish
+% ----
+\newenvironment{varlist}[1]{%
+\begin{list}{}{%
+    \settowidth{\labelwidth}{\sf #1 }     %longest label length
+%    \addtolength{\labelsep}{3ex}          %extra space between lbl/txt
+    \setlength{\leftmargin}{\labelwidth}  %determine leftmargin
+    \addtolength{\leftmargin}{\labelsep}  %determine leftmargin
+    \setlength{\parsep}{0.5ex plus 0.2ex minus 0.2ex}
+    \setlength{\itemsep}{0.3ex}
+    \renewcommand{\makelabel}[1]{\sf ##1\hfill}}}%
+{\end{list}}
+%
+\newenvironment{paramlist}[1]{%
+\begin{list}{}{%
+    \settowidth{\labelwidth}{\tt #1 }     %longest label length
+%    \addtolength{\labelsep}{3ex}          %extra space between lbl/txt
+    \setlength{\leftmargin}{\labelwidth}  %determine leftmargin
+    \addtolength{\leftmargin}{\labelsep}  %determine leftmargin
+    \setlength{\parsep}{0.5ex plus 0.2ex minus 0.2ex}
+    \setlength{\itemsep}{0.3ex}
+    \renewcommand{\makelabel}[1]{\tt ##1\hfill}}}%
+{\end{list}}
+%
+\renewcommand\arraystretch{1.2}% spacing in tables
+%
+\newlength{\pdfwidth}
+%%\setlength{\pdfwidth}{1.0\textwidth}
+\setlength{\pdfwidth}{0.45\textwidth}
+\newlength{\halfpage}
+\setlength{\halfpage}{0.5\textwidth}
+\newlength{\halfpagefig}
+\setlength{\halfpagefig}{0.5\textwidth}
+\addtolength{\halfpagefig}{-0.25cm}
+\newlength{\thirdpage}
+\setlength{\thirdpage}{0.33\textwidth}
+\newlength{\halfline}
+\setlength{\halfline}{0.5\linewidth}
+%{0.5\linewidth}
+%
+\lstnewenvironment{bash}[1]%
+{\lstset{aboveskip=\bigskipamount,belowskip=\bigskipamount,numbers=left,numberstyle=\tiny,language=bash,caption=#1,abovecaptionskip=\bigskipamount,basicstyle=\ttfamily\smaller,linebackgroundcolor={\ifodd\value{lstnumber}\color{green!25}\else\color{green!2}\fi}}}
+{}
+%
+\lstnewenvironment{wout}[2]%
+{\lstset{aboveskip=\bigskipamount,belowskip=\bigskipamount,numbers=left,language=bash,caption=#1,label=#2,basicstyle=\ttfamily\smaller,linebackgroundcolor={\ifodd\value{lstnumber}\color{black!10}\else\color{black!2}\fi}}}
+{}
+%
+\lstnewenvironment{plaintext}[2]%
+{\lstset{aboveskip=\bigskipamount,belowskip=\bigskipamount,showstringspaces=false,numberstyle=\tiny,language=bash,caption=#1,label=#2,abovecaptionskip=\bigskipamount,basicstyle=\ttfamily\smaller,linebackgroundcolor={\ifodd\value{lstnumber}\color{black!10}\else\color{black!2}\fi}}}
+{}
+%
+\lstnewenvironment{config}[1]%
+{\lstset{aboveskip=\bigskipamount,belowskip=\smallskipamount,showstringspaces=false,numberstyle=\tiny,language=bash,abovecaptionskip=\bigskipamount,basicstyle=\ttfamily\smaller,linebackgroundcolor={\ifodd\value{lstnumber}\color{black!10}\else\color{black!2}\fi}}}
+{}
+%
+\renewcommand{\topfraction}{1.0}
+\renewcommand{\bottomfraction}{1.0}
+\renewcommand{\textfraction}{0.0}
+% how hard latex should try to place floats together
+\renewcommand{\floatpagefraction}{0.6}
+%
+%
+%http://tex.stackexchange.com/questions/24766/long-underscore-in-latex
+\newcommand{\uline}[1]{\rule[0pt]{#1}{0.4pt}}
+%form hoo2013.tex
+\newcommand{\sen}[1]{\noindent\rule[1.5\baselineskip]{0pt}{0pt}{\textsl{#1}}}
+
+%%http://tex.stackexchange.com/questions/299/how-to-get-long-texttt-sections-to-break
+\newcommand*\justify{%
+  \fontdimen2\font=0.4em% interword space
+  \fontdimen3\font=0.2em% interword stretch
+  \fontdimen4\font=0.1em% interword shrink
+  \fontdimen7\font=0.1em% extra space
+  \hyphenchar\font=`\-% allowing hyphenation
+}
+%\texttt{\justify BLA BLA}
+%
+%http://tex.stackexchange.com/questions/36401/drawing-boxes-around-words
+\def\pdfliteral#1{\special{pdf:literal #1}}
+\def\but#1{\leavevmode \setbox0=\hbox{#1}%
+   \dimen0=\wd0 \edef\posxA{\expandafter\ignorept\the\dimen0 \space}%
+   \hbox{\kern3pt\pdfliteral{q .8 .8 .8 rg .8 .8 .8 RG .9963 0 0 .9963 0 0 cm 1 j 1 J 6 w
+                             0 0 m 0 5 l \posxA 5 l \posxA 0 l 0 0 l B Q}%
+         \box0 \kern3pt}%
+}
+{\lccode`\?=`\p \lccode`\!=`\t  \lowercase{\gdef\ignorept#1?!{#1}}}
+\newcommand{\btn}[1]{\but{\cmp{#1}}}
+
+\newcommand{\fit}[1]{\noindent\resizebox{\linewidth}{!}{#1}}
+\newcommand{\fcmp}[1]{\noindent\resizebox{\linewidth}{!}{\cmp{#1}}}
+\newcommand{\scmp}[1]{\scalebox{0.96}{\cmp{#1}}}
+

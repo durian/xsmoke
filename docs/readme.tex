@@ -1,0 +1,328 @@
+%%% Local Variables: 
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-engine: xetex
+%%% End:
+\documentclass[a4paper,12pt]{article} 
+
+%\usepackage[hmargin=2.25cm, vmargin=1.5cm]{geometry} % Document margins
+\usepackage[right=2cm, left=2cm,bottom=2cm,top=2cm]{geometry}
+
+\usepackage[usenames,dvipsnames]{xcolor} % Allows the definition of hex colors
+\definecolor{linkcolor}{HTML}{506266} % Blue-gray color for links
+\definecolor{shade}{HTML}{F5DD9D} % Peach color for the contact information box
+\definecolor{text1}{HTML}{FF0000} % Main document font color, off-black
+\definecolor{headings}{HTML}{701112} % Dark red color for headings
+% Other color palettes: shade=B9D7D9 and linkcolor=A40000; shade=D4D7FE and linkcolor=FF0080
+
+\usepackage{polyglossia}
+\setmainlanguage[variant=uk]{english}
+
+\usepackage{fontspec,xltxtra,xunicode}
+\defaultfontfeatures{Ligatures=TeX}
+\defaultfontfeatures{Mapping=tex-text}
+\setromanfont[Mapping=tex-text,SmallCapsFeatures={Scale=1.1},Numbers=OldStyle]{Optima}%{Adobe Garamond Pro} %{Hoefler Text} % Main document font
+\setmonofont[Scale=0.85]{Menlo}
+
+\newfontfamily\descitemfont{Optima}
+%\newfontfamily\notefont{Lucida Handwriting}
+\newcommand\descitem[1]{{\notefont #1}}
+\newcommand\descitemcol[1]{{\color{headings}\descitemfont #1}}
+
+\newenvironment{vlist}[1]{%
+\begin{list}{}{%
+    \settowidth{\labelwidth}{\tt #1 }     %longest label length
+%    \addtolength{\labelsep}{3ex}          %extra space between lbl/txt
+    \setlength{\leftmargin}{\labelwidth}  %determine leftmargin
+    \addtolength{\leftmargin}{\labelsep}  %determine leftmargin
+    \setlength{\parsep}{0.5ex plus 0.2ex minus 0.2ex}
+    \setlength{\itemsep}{0.3ex}
+    \renewcommand{\makelabel}[1]{\color{headings}\tt ##1 \color{text1}\hfill}}}%
+{\end{list}}
+%
+
+\usepackage{setspace}
+%\onehalfspacing
+%\setstretch{1.16}%onehalf is 1.25/1.213/1.241 for 10/11/12 pt
+\setstretch{1.10}
+
+\usepackage{titlesec} % Allows creating custom \section's
+% Format of the section titles
+\titleformat{\section}{\color{headings}
+%\scshape%
+\descitemfont
+\Huge\raggedright}{}{0em}{}[\color{black}\titlerule]
+\titlespacing{\section}{0pt}{0pt}{5pt} % Spacing around titles
+
+%\newfontfamily\subsubsectionfont[Color=MSLightBlue]{Times New Roman}
+% Set formats for each heading level
+%\titleformat*{\section}{\Large\bfseries\sffamily\color{MSBlue}}
+%\titleformat*{\subsection}{\large\bfseries\sffamily\color{MSLightBlue}}
+\titleformat*{\subsection}{\color{headings}}
+
+
+\usepackage{enumitem}
+\SetLabelAlign{parright}{\parbox[t]{\labelwidth}{\raggedleft#1}}
+\setlist[description]{style=multiline,topsep=10pt,leftmargin=2.5cm,font=\normalfont,%
+    align=parright}
+
+\newlength{\pdfwidth}
+%%\setlength{\pdfwidth}{1.0\textwidth}
+\setlength{\pdfwidth}{0.45\textwidth}
+\newlength{\halfpage}
+\setlength{\halfpage}{0.5\textwidth}
+\newlength{\halfpagefig}
+\setlength{\halfpagefig}{0.5\textwidth}
+\addtolength{\halfpagefig}{-0.25cm}
+
+\newcommand{\fit}[1]{\noindent\resizebox{\linewidth}{!}{#1}}
+
+\usepackage{comment}
+
+\begin{document}
+
+\section*{\Huge{\textbf{X-Smoke}}}
+\vspace{1cm}
+
+Plugin that draws two smoke trails behind your plane.
+
+\vspace{0.5\baselineskip}
+It needs X-Plane 11 (64 bits only), and works on Linux, Mac
+and Windows.
+
+\vspace{0.5\baselineskip}
+The smoke consists of simple smoke puffs, which linger a
+while before they disappear. I wrote this to enhance my acrobatic
+flying, but it can also be used to create contrails, to
+simulate crop dusting or to find the multi-player (AI) planes.
+
+A number of different smoke types have been included. Some are quite
+static, and are meant to show the flight path more than create a
+realist smoke effect. The smoke effect for the multi-player planes is
+fixed at the moment.
+
+\vspace{0.5\baselineskip}
+The smoke can be started and stopped in two ways. First, from the
+menu, and second, by binding a key or joystick button to the custom command
+defined by the plugin. The command is called
+\texttt{durian/xsmoke/toggle}. 
+
+\vspace{1cm}
+\section*{\Huge{\textbf{Installation}}}
+\vspace{1cm}
+
+The plugin is distributed as a zip file. The \texttt{xsmoke} directory
+and its contents, contained in the zip file, must be put in the
+\texttt{Resources/plugins} directory which can be found in the main
+X-Plane directory. The directory containing the plugin \textsl{must}
+be called \texttt{xsmoke}. If installed correctly, a new menu item
+called ``X-Smoke'' will appear under the Plugins menu in X-Plane. This
+menu contains a number of items. The first one, called ``Toggle
+Smoke'', switches the smoke on or off. The second one, called ``Toggle
+AI smoke'', puts a smoke trail behind the multi-player planes (the
+ones that are moving). The third one, called ``Rescan directory'',
+rescans the directory for new ini files and removes the smoke
+currently in the air. It also resets the selected smoke to the one
+called \texttt{smoke.ini}.
+
+These three menu items are followed by a list of initialisation files.
+The file called \texttt{smoke.ini} is loaded on start-up. You can
+select another initialisation file whenever you want. The menu lists
+all files with suffix \texttt{ini}, and you can add new ones if you
+like. 
+
+If you put a file called \texttt{smoke.ini} in an aircrafts directory
+(where the \texttt{acf} file resides), it will override the
+\texttt{smoke.ini} in the plugin directory. This allows you to
+automatically load the desired kind of smoke per aircraft.
+
+\vspace{0.5\baselineskip}
+The initialisation files contain a number of parameters you can
+change. The default settings produce a white vapour trail. 
+
+\vspace{3cm}
+\section*{\Huge{\textbf{Parameters}}}
+\vspace{1cm}
+
+\vspace{0.5\baselineskip}
+You can tweak the smoke colour and transparency to make the smoke look the
+way you want. Select the relevant entry from the menu again after you
+have made a change. This will reload the settings.
+
+The puffs have two phases. First they grow from their minimum till
+maximum size (the grow phase), and then they linger (the linger
+phase). When their linger time is up, they disappear. 
+
+In the grow phase, the size, speed and transparency of the smoke puffs
+are changed according to the parameters. In the linger phase, these
+parameters stay fixed, but the smoke puffs can still grow (or
+diminish) in size.
+
+If the puffs hit the ground, they stop their vertical movement. The
+will still grow and move with the wind.
+
+There are (too) many setting to control the behaviour of the smoke
+puffs. They have been sorted into four groups containing related
+settings.
+
+\vspace{0.2cm}
+\subsection*{\large{\textbf{General}}}
+\vspace{0.2cm}
+
+\begin{vlist}{}
+
+\item[smoke\_max = 50000] The maximum number of smoke puffs drawn by
+  the plugin. When the maximum is reached, the generation of puffs is
+  suspended until enough smoke puffs have disappeared. \texttt{50000}
+  is quite a high number which you will probably not reach.
+
+\item[smoke\_refresh = -1] Specifies how often the smoke draw routine is called.
+  Leave this at \texttt{-1} to draw them every frame. To run the smoke
+  engine 20 times per second, specify \texttt{0.05}.
+
+\end{vlist}{}
+
+\vspace{0.2cm}
+\subsection*{\large{\textbf{Smoke emitters}}}
+\vspace{0.2cm}
+
+There are two ways to specify the locations of where the smoke is
+emitted. The first example shows the easiers method; the plugin scans
+the plane to determine where the engines are. The second example shows
+how they can be specified manually.
+
+\begin{vlist}{}
+
+\item[plane\_smoke\_emitter = 0] This is the easiest way to specify
+  the locations where the smoke is emitted. The plugin will scan the
+  plane for the positions of the engines. Each engine is assigned an
+  emitter. It is still possible to specify offsets (see
+  \texttt{plane\_smoke\_emit\_offset} below to adjust the position).
+
+\item[plane\_smoke\_emitter = 10,20,10] If you specify three
+  parameters, the engine locations are not scanned. Instead, these three numbers are
+  parameters for the loop that determines where the smoke puffs are emitted.
+  The example values will generate 10 and 20. This means that
+  smoke is emitted 10 meters to the right from the centre of the plane, and at 20
+  meters. The points are mirrored, so this example specifies 4 points where
+  smoke is emitted, approximately where the 4 engines of a 747 are.
+  \par\indent The loop starts at the first value specified, \texttt{10}. The
+  increment is specified in the third value, \texttt{10}, so the next
+  value is \texttt{20}. The end value, the second value, is \texttt{20}
+
+\item[plane\_smoke\_emit\_offset = 0.5, -0.5, 2.0] This setting
+  adjusts how far to the right, below and behind the calculated or
+  specified emitter location smoke is emitted. The first value in the
+  example specifies \texttt{0.5} meters to the right of the location,
+  the second one \texttt{0.5} meters \textsl{under} the location, and
+  the third one \texttt{2} meters \textsl{behind} the location. The
+  offset is applied to each emitter point. The locations obtained
+  automatically are often inside the engines, and with this parameter
+  they can be moved to a more suitable location.
+
+\item[plane\_smoke\_emit\_rate = 120] The number of smoke puffs 
+  generated per second. Higher numbers means thicker smoke. Applied to
+  each emitter point individually. A high rate coupled with a long
+  linger time can cause the maximum smoke puffs to be reached easily.
+  With a single engine plane, and emitting 120 puffs per second,  
+  a \texttt{smoke\_max} setting of 20000 is reached in 166 seconds.
+  With a twin engine plane, in half that time.
+
+\item[plane\_smoke\_flow = 0.8] Smoke puffs are emitted in about 80\%
+  of the time. Can be used to make the trail thinner or thicker.
+
+\item[plane\_smoke\_throttle = 0] Setting this parameter to \texttt{1}
+  varies the amount of smoke with the throttle setting. The
+  \texttt{plane\_smoke\_emit\_rate}, \texttt{plane\_smoke\_flow} and
+  \texttt{plane\_smoke\_emit\_velocity} are varied between
+  \texttt{25}\% and \texttt{100}\% of the specified value depending on
+  the throttle setting. It doesn't detect if the engine is running
+  (yet), it only looks at the position of the throttle.
+
+\end{vlist}{}
+
+\vspace{0.2cm}
+\subsection*{\large{\textbf{Smoke size and duration}}}
+\vspace{0.2cm}
+
+\begin{vlist}{}
+
+\item[plane\_smoke\_size = 0.0, 5.0, 1.0] The smoke grows from the
+  first number \texttt{0.0} to the second number \texttt{5.0}, with a rate specified by the
+  third number. The rate in this example is \texttt{1.0} which means
+  that the puff takes \texttt{5} seconds to grow to its maximum size. The puff
+  then lingers in the air for the amount of time specified by the
+  \texttt{plane\_smoke\_linger} parameter. The size values are meters,
+  and the growth rate is in meters per second.
+
+\item[plane\_smoke\_linger = 30, 60, 0.5] Smoke will linger between \texttt{30} plus
+  a random number between \texttt{0} and \texttt{60} seconds, and grow in size with a
+  rate of \texttt{0.5} m/s.
+
+\end{vlist}{}
+
+\vspace{0.2cm}
+\subsection*{\large{\textbf{Smoke colours and transparency}}}
+\vspace{0.2cm}
+
+\begin{vlist}{}
+
+\item[plane\_smoke\_rgb\_left = 255,255,255] The RGB colour of the smoke
+  on the left side.
+
+\item[plane\_smoke\_rgb\_right = 255,255,255] The RGB colour of the smoke
+  on the right side.
+
+\item[plane\_smoke\_colour\_variation = 0.4] The RGB values specified
+  above are varied by \texttt{40}\%. This gives better looking smoke.
+
+\item[plane\_smoke\_transparency = 0.2, 0.01] The transparency of the
+  puffs. The transparency is varied from the first number \texttt{0.2} to the
+  second number \texttt{0.01} over the age of the puff. The age is
+  calculated from the \texttt{plane\_smoke\_size} parameter explained earlier.
+
+\end{vlist}{}
+
+\vspace{0.2cm}
+\subsection*{\large{\textbf{Smoke movement}}}
+\vspace{0.2cm}
+
+\begin{vlist}{}
+
+\item[plane\_smoke\_movement = 0.3] The initial speed of the puffs, in
+  m/s. Higher speeds means the smoke disperses more. The speed
+  assigned will be a random number less than the specified value. The
+  puffs change their initial random speed and direction to the direction and
+  speed of the wind in the grow phase. They keep moving at the speed
+  of the wind in the linger phase.
+
+\item[plane\_smoke\_emit\_velocity = 4.4] The exit velocity of the smoke
+  in m/s.
+
+\item[plane\_smoke\_vy = 2.0, -1.0] The desired vertical speed of the
+  puffs at the start and end of the grow phase. They will continue to
+  rise or fall in the linger phase at the speed reached at the end.
+  The example has the smoke rise in the beginning, at \texttt{2} m/s,
+  and then slow down and fall to \texttt{-1} m/s (that is, going down)
+  during the grow phase.
+
+\item[plane\_smoke\_wind\_factor = 1.0] The actual wind speed is multiplied
+  by this factor when assigning it to the smoke. Set it to \texttt{0}
+  to make the smoke impervious to the wind.
+
+\end{vlist}
+
+\vspace{0.2cm}
+\subsection*{\large{\textbf{Version history}}}
+\vspace{0.2cm}
+
+%\vspace{0.5\baselineskip}
+This readme is for version 1.1.1. 
+
+Main changes over 1.0.0 are the change of the name to \texttt{xsmoke},
+the addition of the multi-player smoke, and the X-Plane 11 only
+requirement. Fixes for 11.41 and 11.50.
+
+\vspace{0.5\baselineskip} {\color{text1}
+ May not be re-distributed, sold or used for commercial purposes without explicit permission.}
+\end{document}
